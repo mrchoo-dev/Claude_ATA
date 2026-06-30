@@ -1,0 +1,20 @@
+{
+  "name": "ata-crawler",
+  "version": "1.0.0",
+  "description": "ATA 가격 모니터링 크롤러",
+  "main": "crawler.js",
+  "scripts": {
+    "start": "node crawler.js",
+    "schedule": "node scheduler.js",
+    "server": "node local-server.js"
+  },
+  "dependencies": {
+    "playwright": "^1.44.0",
+    "@supabase/supabase-js": "^2.43.0",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.4.5",
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
