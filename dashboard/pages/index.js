@@ -96,7 +96,7 @@ export default function Dashboard() {
       cd.history.forEach(row => {
         const date = format(new Date(row.crawled_at), 'MM/dd HH시', { locale: ko });
         if (!dateMap[date]) dateMap[date] = { date };
-        dateMap[date][ch] = row.price;
+        dateMap[date][ch] = Math.round(row.price / 10000);
       });
     });
     setChartData(Object.values(dateMap));
@@ -247,8 +247,9 @@ export default function Dashboard() {
                   {CHANNEL_KEYS.map(key => {
                     const ch = CHANNELS[key];
                     const cd = group.channelData[key];
-                    const price = cd?.latestPrice;
-                    const diff = price && group.ata_price ? price - group.ata_price : null;
+                    const price = cd?.latestPrice; // 원단위
+                    const priceMan = price ? Math.round(price / 10000) : null;
+                    const diff = priceMan const diff = price && group.ata_price ? price - group.ata_price : null;const diff = price && group.ata_price ? price - group.ata_price : null; group.ata_price ? priceMan - group.ata_price : null;
                     return (
                       <div key={key} className="rounded-lg p-2 text-center"
                         style={{ background: 'rgba(255,255,255,0.04)' }}>
@@ -260,7 +261,7 @@ export default function Dashboard() {
                         )}
                         {price ? (
                           <>
-                            <div className="text-sm font-bold">{price}만</div>
+                            <div className="text-sm font-bold">{priceMan}만</div>
                             {diff !== null && (
                               <div className="text-xs" style={{ color: diff > 0 ? 'var(--red)' : 'var(--green)' }}>
                                 {diff > 0 ? '+' : ''}{diff}만
