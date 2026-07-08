@@ -123,7 +123,7 @@ def run_crawler():
 
     # DrissionPage 브라우저 설정
     options = ChromiumOptions()
-    options.headless(False)  # 창 띄우기 (봇 감지 우회)
+    options.headless(True)  # 창 띄우기 (봇 감지 우회)
     options.set_argument("--no-sandbox")
     options.set_argument("--disable-blink-features=AutomationControlled")
     options.set_user_agent(
