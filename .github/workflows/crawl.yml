@@ -1,0 +1,35 @@
+name: ATA 가격 크롤링
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'   # 매주 월요일 오전 9시 (한국시간)
+    - cron: '0 4 * * 6'   # 매주 토요일 오후 1시 (한국시간)
+  workflow_dispatch:        # 수동 실행 버튼
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@v4
+
+      - name: Python 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 패키지 설치
+        run: |
+          pip install drissionpage pillow requests supabase
+
+      - name: 크롬 설치
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
+      - name: 크롤러 실행
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python crawler.py
